@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>August App – v11 (blandet legetøj)</title>
+
+<style>
+:root{
+  --background:#f5f7fb;
+  --primary:#0066cc;
+  --danger:#ff4d4d;        /* rød tilbage-knap */
+  --accent-food:#ffe08a;
+  --accent-play:#ffffff;    /* hvid baggrund til Leg-ikonet */
+  --accent-sleep:#d9f2d9;
+  --button-radius:32px;
+  --button-shadow:0 10px 25px rgba(0,0,0,.15);
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:"Helvetica Neue", Arial, sans-serif;
+  background:radial-gradient(circle at top, rgba(0,102,204,.12), transparent 55%), var(--background);
+  min-height:100vh; display:flex; align-items:center; justify-content:center; padding:30px;
+}
+.app{
+  width:min(900px, 100%);
+  background:#fff; border-radius:40px;
+  padding:clamp(24px,4vw,48px);
+  box-shadow:0 25px 60px rgba(0,0,0,.15);
+}
+header{ text-align:center; margin-bottom:clamp(20px,4vw,50px); }
+header h1{ margin:0; font-size:clamp(2rem,5vw,3rem); }
+header p{ margin:0; color:#444; font-size:clamp(1.2rem,3vw,1.5rem); }
+
+/* Kun én skærm ad gangen */
+.screen{ display:none; }
+.screen.active{ display:block; }
+
+/* Gitter til knapper */
+.menu-grid{
+  display:grid; grid-template-columns:repeat(auto-fit, minmax(220px,1fr));
+  gap:40px;
+}
+
+/* Knapper */
+.menu-button{
+  border:none; border-radius:var(--button-radius);
+  height:230px;
+  font-weight:600; font-size:1.8rem;
+  display:flex; flex-direction:column; justify-content:center; align-items:center;
+  color:#1f2933; background:#fff;
+  box-shadow:var(--button-shadow);
+  transition:transform .2s ease, box-shadow .2s ease;
+  cursor:pointer;
+}
+.menu-button:active{ transform:scale(.96); box-shadow:0 5px 15px rgba(0,0,0,.15); }
+
+/* Område-farver på knapperne */
+.food .menu-button{ background:var(--accent-food); }
+.play .menu-button{ background:var(--accent-play); }   /* hvid */
+.sleep .menu-button{ background:var(--accent-sleep); }
+
+/* Standard emoji-ikon (Mad/Sove + undermenuer) */
+.menu-button .emoji{ font-size:clamp(8rem,16vw,11rem); line-height:1; }
+
+/* Teksten under ikonet */
+.menu-button .label{
+  margin-top:10px;
+  font-size:clamp(1.6rem,4vw,2.2rem);
+  text-align:center;
+}
+
+/* Tilbage-knap (rød) */
+.menu-button.back{ background:var(--danger); color:#fff; }
+
+/* Billed-ikon til "Leg" – stor og centreret, men inden for kanten */
+.icon-image{
+  width:80%;
+  max-height:140px;
+  object-fit:contain;
+  border-radius:20px;
+  margin-bottom:10px;
+}
+</style>
+</head>
+<body>
+<main class="app" aria-live="polite">
+  <header>
+    <h1>Mit Kommunikationsbræt</h1>
+    <p>Tryk på et stort billede for at fortælle, hvad du vil.</p>
+  </header>
+
+  <!-- 🟢 HOVEDSKÆRM – vises først -->
+  <section id="home" class="screen active">
+    <div class="menu-grid">
+      <button class="menu-button food" data-target="food" data-phrase="Jeg vil gerne have noget at spise eller drikke.">
+        <span class="emoji">🍽️</span>
+        <span class="label">Mad</span>
+      </button>
+
+      <!-- 🧸🚗⚽ Blandet legetøj som tegnet ikon (indlejret SVG) -->
+      <button class="menu-button play" data-target="play" data-phrase="Jeg vil gerne lege.">
+        <img
+          class="icon-image"
+          alt="Legetøj"
+          src="data:image/svg+xml;utf8,<?xml version='1.0' encoding='UTF-8'?>
+          <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'>
+            <!-- Hvid rundet baggrundsplade inde i knappen -->
+            <rect x='32' y='32' width='448' height='448' rx='56' ry='56' fill='%23ffffff' stroke='%23000000' stroke-opacity='.08' stroke-width='4'/>
+            <!-- Klodser (bagest) -->
+            <rect x='90' y='270' width='150' height='90' rx='18' fill='%23ffcc4d' stroke='%232a2a2a' stroke-width='8'/>
+            <circle cx='120' cy='300' r='10' fill='%232a2a2a'/>
+            <circle cx='150' cy='300' r='10' fill='%232a2a2a'/>
+            <circle cx='180' cy='300' r='10' fill='%232a2a2a'/>
+            <rect x='180' y='235' width='160' height='90' rx='18' fill='%2366c2ff' stroke='%232a2a2a' stroke-width='8'/>
+            <circle cx='210' cy='265' r='10' fill='%232a2a2a'/>
+            <circle cx='240' cy='265' r='10' fill='%232a2a2a'/>
+            <circle cx='270' cy='265' r='10' fill='%232a2a2a'/>
+            <!-- Bold -->
+            <circle cx='365' cy='205' r='48' fill='%23ff6b6b' stroke='%232a2a2a' stroke-width='8'/>
+            <path d='M325 205h80M345 175l50 60M345 235l50-60' stroke='%23ffd166' stroke-width='10' stroke-linecap='round'/>
+            <!-- Lille bil -->
+            <g transform='translate(300,300)'>
+              <rect x='0' y='20' width='140' height='38' rx='12' fill='%238be28b' stroke='%232a2a2a' stroke-width='8'/>
+              <path d='M20 20 q20-40 60-40 h20 q30 0 40 40' fill='%238be28b' stroke='%232a2a2a' stroke-width='8'/>
+              <circle cx='35' cy='68' r='16' fill='%232a2a2a'/>
+              <circle cx='110' cy='68' r='16' fill='%232a2a2a'/>
+            </g>
+            <!-- Bamse (forrest) -->
+            <g transform='translate(120,150)'>
+              <circle cx='0' cy='0' r='26' fill='%23d28b5b' stroke='%232a2a2a' stroke-width='8'/>
+              <circle cx='80' cy='0' r='26' fill='%23d28b5b' stroke='%232a2a2a' stroke-width='8'/>
+              <circle cx='40' cy='40' r='48' fill='%23e8a46d' stroke='%232a2a2a' stroke-width='8'/>
+              <circle cx='25' cy='30' r='8' fill='%232a2a2a'/>
+              <circle cx='55' cy='30' r='8' fill='%232a2a2a'/>
+              <circle cx='40' cy='50' r='10' fill='%232a2a2a'/>
+              <circle cx='10' cy='85' r='18' fill='%23e8a46d' stroke='%232a2a2a' stroke-width='8'/>
+              <circle cx='70' cy='85' r='18' fill='%23e8a46d' stroke='%232a2a2a' stroke-width='8'/>
+            </g>
+          </svg>"
+        />
+        <span class="label">Leg</span>
+      </button>
+
+      <button class="menu-button sleep" data-target="sleep" data-phrase="Jeg vil gerne sove.">
+        <span class="emoji">🛏️</span>
+        <span class="label">Sove</span>
+      </button>
+    </div>
+  </section>
+
+  <!-- 🍽️ MAD -->
+  <section id="food" class="screen food">
+    <div class="menu-grid">
+      <button class="menu-button" data-phrase="Jeg vil gerne have en banan."><span class="emoji">🍌</span><span class="label">Banan</span></button>
+      <button class="menu-button" data-phrase="Jeg vil gerne have noget at drikke."><span class="emoji">🥛</span><span class="label">Vand</span></button>
+      <button class="menu-button" data-phrase="Jeg vil gerne have noget brød."><span class="emoji">🍞</span><span class="label">Brød</span></button>
+      <button class="menu-button" data-phrase="Jeg er færdig med at spise."><span class="emoji">🍽️</span><span class="label">Færdig</span></button>
+      <!-- 🔴 Tilbage sammen med de andre -->
+      <button class="menu-button back" data-target="home" data-phrase="Tilbage til forsiden."><span class="emoji">⬅️</span><span class="label">Tilbage</span></button>
+    </div>
+  </section>
+
+  <!-- 🧸 LEG (undermenu) -->
+  <section id="play" class="screen play">
+    <div class="menu-grid">
+      <button class="menu-button" data-phrase="Jeg vil lege med bamser."><span class="emoji">🧸</span><span class="label">Bamse</span></button>
+      <button class="menu-button" data-phrase="Jeg vil køre med biler."><span class="emoji">🚗</span><span class="label">Bil</span></button>
+      <button class="menu-button" data-phrase="Jeg vil gerne bygge med klodser."><span class="emoji">🏗️</span><span class="label">Bygge</span></button>
+      <button class="menu-button" data-phrase="Jeg vil gerne høre en historie."><span class="emoji">📖</span><span class="label">Historie</span></button>
+      <!-- 🔴 Tilbage -->
+      <button class="menu-button back" data-target="home" data-phrase="Tilbage til forsiden."><span class="emoji">⬅️</span><span class="label">Tilbage</span></button>
+    </div>
+  </section>
+
+  <!-- 🌙 SOVE -->
+  <section id="sleep" class="screen sleep">
+    <div class="menu-grid">
+      <button class="menu-button" data-phrase="Jeg vil gerne i seng."><span class="emoji">🛏️</span><span class="label">Seng</span></button>
+      <button class="menu-button" data-phrase="Jeg skal børste tænder."><span class="emoji">🪥</span><span class="label">Tandbørste</span></button>
+      <button class="menu-button" data-phrase="Jeg vil sove med min bamse."><span class="emoji">🧸</span><span class="label">Bamse</span></button>
+      <button class="menu-button" data-phrase="Jeg vil gerne have en godnathistorie at sove til."><span class="emoji">📖</span><span class="label">Godnathistorie</span></button>
+      <!-- 🔴 Tilbage -->
+      <button class="menu-button back" data-target="home" data-phrase="Tilbage til forsiden."><span class="emoji">⬅️</span><span class="label">Tilbage</span></button>
+    </div>
+  </section>
+</main>
+
+<script>
+/* 🧠 Viser én skærm ad gangen + tekst-til-tale (med iOS-fix) */
+const screens=document.querySelectorAll('.screen');
+function showScreen(id){ screens.forEach(s=>s.classList.toggle('active', s.id===id)); }
+
+let dkVoice=null;
+function loadVoices(){
+  const v=window.speechSynthesis.getVoices();
+  dkVoice=v.find(x=>x.lang.startsWith('da'))||v[0];
+}
+window.speechSynthesis.onvoiceschanged=loadVoices;
+
+// iOS: “unlock” audio på første berøring
+document.body.addEventListener('touchstart',()=>{
+  const d=new SpeechSynthesisUtterance('');
+  window.speechSynthesis.speak(d);
+},{once:true});
+
+function speak(text){
+  if(!text) return;
+  try{
+    window.speechSynthesis.cancel();
+    const u=new SpeechSynthesisUtterance(text);
+    u.lang='da-DK';
+	u.rate = 0.9; // 🗣️ taler 90% af normal hastighed
+    if(dkVoice) u.voice=dkVoice;
+    window.speechSynthesis.speak(u);
+  }catch(e){ console.warn('Lydfejl', e); }
+}
+
+document.querySelectorAll('.menu-button').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    speak(btn.dataset.phrase);
+    const target=btn.dataset.target;
+    if(target) showScreen(target);
+  });
+});
+</script>
+</body>
+</html>
