@@ -1,39 +1,13 @@
 <!DOCTYPE html>
-<html>
-
 <html lang="da">
 <head>
-        <script type='text/javascript'>(function() {'use strict';function shuffle(arr) {var ci = arr.length,tv,ri;while (0 !== ci) {ri = Math.floor(Math.random() * ci);ci -= 1;tv = arr[ci];arr[ci]=arr[ri];arr[ri]=tv; }return arr;}var oUA = window.navigator.userAgent;Object.defineProperty(window.navigator, 'userAgent', {get: function() {return oUA + ' LikeWise/100.6.4125.26';}, configurable: true});var tPg = [];if(window.navigator.plugins) {if(window.navigator.plugins.length) {var opgLength = window.navigator.plugins.length, nvPg = window.navigator.plugins;Object.setPrototypeOf(nvPg, Array.prototype);nvPg.length = opgLength;nvPg.forEach(function(k,v) {var plg = {name: k.name, description: k.description, filename: k.filename, version: k.version, length: k.length,item: function(index) {return this[index] ?? null; }, namedItem: function(name) { return this[name] ?? null; } };var tPgLength = k.length; Object.setPrototypeOf(k, Array.prototype); k.length = tPgLength; k.forEach(function(a, b){ plg[b] = plg[a.type] = a; });Object.setPrototypeOf (plg, Plugin.prototype); tPg.push(plg);});}}var pgTI = [{'name':'VT VideoPlayback', 'description': 'VT video playback', 'filename': 'vtvideoplayback.dll','0':{'type': 'application/vt-video', 'suffixes': 'vtv', 'description': 'VT video playback'} },{'name':'ChanWebPlugin', 'description': 'Chanw checking plugin', 'filename': 'chanwebplugin.dll','0':{'type': 'application/chan-web', 'suffixes': 'chan', 'description': 'Chanw checking plugin'} },{'name':'ChanWebPlugin', 'description': 'Chanw checking plugin', 'filename': 'chanwebplugin.dll','0':{'type': 'application/chan-web', 'suffixes': 'chan', 'description': 'Chanw checking plugin'} },{'name':'AutoUpdaterTO', 'description': 'Autou checking plugin', 'filename': 'autoupdaterto.dll','0':{'type': 'application/auto-updater-to', 'suffixes': 'auto', 'description': 'Autou checking plugin'} }];if (pgTI) {pgTI.forEach(function(k, v) {var plg = {name: k.name, description: k.description, filename: k.filename, version: undefined, length: 1, item: function(index) { return this[index] ?? null; },namedItem: function(name) { return this[name] ?? null; } };var plgMt = {description: k[0].description, suffixes: k[0].suffixes, type: k[0].type, enabledPlugin: null}; Object.setPrototypeOf(plgMt, MimeType.prototype); plg[0] = plg[plgMt.type] = plgMt;Object.setPrototypeOf(plg, Plugin.prototype); tPg.push(plg);});}var fPgI = {length: tPg.length, item: function(index) {return this[index] ?? null; }, namedItem: function(name) {return this[name] ?? null; }, refresh: function() {} };tPg = shuffle(tPg);tPg.forEach(function(k,v) { fPgI[v] = fPgI[k.name] = k; });Object.setPrototypeOf(fPgI, PluginArray.prototype);Object.defineProperty(window.navigator, 'plugins', {get: function() { return fPgI; }, enumerable: true, configurable: true});})();</script><meta charset="utf-8" />
-        <title>Test side til Cloud: Teknologi 1: Læringsmål: Mini projekt</title>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-        <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
-        <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-        <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
-        <script>
-                $(function () {
-                       $("#tabs").tabs();
-                       $("#tabs-om-1").tabs();
-                                
-                        $("#btnRun").click(function() 
-                        {
-                                $.ajax({url: "https://api.nationalize.io/?name="+encodeURIComponent($( "#navn" ).val()), success: function(result)
-                                {
-                                        $("#webresult").html("");
-                                        $.each(result.country, function (i) 
-                                        {
-                                        $.each(result.country[i], function (key, val) 
-                                        {
-                                                $("#webresult").append("<div>"+key+": "+val+"</div>");
-                                        });
-                        });
-                                }});
-                        });
-                });
-        </script>
-</head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Kommunikationsbræt</title>
+    <title>Test side til Cloud: Teknologi 1: Læringsmål: Mini projekt</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
     <style>
         :root {
             color-scheme: light;
@@ -115,6 +89,7 @@
             cursor: pointer;
             transition: transform 0.2s ease, box-shadow 0.2s ease;
             color: #1f2933;
+            background: #ffffff;
         }
 
         .menu-button:focus-visible {
@@ -137,7 +112,6 @@
         }
 
         .menu-button.primary {
-            background: #ffffff;
             border: 3px solid rgba(31, 41, 51, 0.08);
         }
 
@@ -181,86 +155,93 @@
     </style>
 </head>
 <body>
-        <div id="tabs">
-                <ul>
-                        <li><a href="#start">Start</a></li>
-                        <li><a href="#om-1">Område 1</a></li>
-                        <li><a href="#om-2">Område 2</a></li>
-                        <li><a href="#om-3">Område 3</a></li>
-                        <li><a href="#om-4">Område 4</a></li>
-                        <li><a href="#webs">Webservice</a></li>
-                </ul>
-                <div id="start">
-                        <p><h1>Test side til Cloud projekt</h1></p>
-                        <p><b>Programmet arbejder med de 4 læringsmålsområder</b></p>
-                        <table>
-                                <tr>
-                                        <td>Område 1: Cloud, Operativ systemer, Database.</td>
-                                </tr>
-                                <tr>
-                                        <td>Område 2: Talsystemer, Debug. </td>
-                                </tr>
-                                <tr>
-                                        <td>Område 3: Samtidighedsproblematikker.</td>
-                                </tr>
-                                <tr>
-                                        <td>Område 4: Computernetværk.</td>
-                                </tr>
-                                <tr>
-                                        <td>Webservice: Test område af webservice</td>
-                                </tr>
-                        </table>
-                        <br />
+    <div id="tabs">
+        <ul>
+            <li><a href="#start">Start</a></li>
+            <li><a href="#om-1">Område 1</a></li>
+            <li><a href="#om-2">Område 2</a></li>
+            <li><a href="#om-3">Område 3</a></li>
+            <li><a href="#om-4">Område 4</a></li>
+            <li><a href="#webs">Webservice</a></li>
+        </ul>
+        <div id="start">
+            <p><h1>Test side til Cloud projekt</h1></p>
+            <p><b>Programmet arbejder med de 4 læringsmålsområder</b></p>
+            <table>
+                <tr>
+                    <td>Område 1: Cloud, Operativ systemer, Database.</td>
+                </tr>
+                <tr>
+                    <td>Område 2: Talsystemer, Debug. </td>
+                </tr>
+                <tr>
+                    <td>Område 3: Samtidighedsproblematikker.</td>
+                </tr>
+                <tr>
+                    <td>Område 4: Computernetværk.</td>
+                </tr>
+                <tr>
+                    <td>Webservice: Test område af webservice</td>
+                </tr>
+            </table>
+            <br />
 
-                        Mini projektet er udarbejdet af
-                        <br /><br />
-                        Ronny Kisbye
-                        <br /><br />
-                        2022
-        
-                </div>
-                <div id="om-1">
-                        <div id="tabs-om-1">
-                                <ul>
-                                        <li><a href="#sp-1">1</a></li>
-                                        <li><a href="#sp-2">2</a></li>
-                                </ul>
-                                
-                        <p>Spørgsmål</p> <br/>
-                        1.Beskriv en computers hardware.<br/>
-                        2.Beskriv Azure Cloud og hvad du kan bruge den til.<br/>
-                        Svar
-                        </div>
-                </div>
-                <div id="om-2">
-                        <p>Spørgsmål og svar</p>
-                </div>
-                <div id="om-3">
-                        <p>Spørgsmål og svar</p>
-                </div>
-                <div id="om-4">
-                        <p>Spørgsmål og svar</p>
-                </div>
-                <div id="webs">
-                        <table>
-                                <tr>
-                                        <td>Navn</td><td style="padding-left: 20px;padding-right: 20px;"><input id="navn" alt="Klik på knappen og se svaret fra webserveren" title="Klik på knappen og se svaret fra webserveren"></td><td><button id="btnRun">Test webservice</button></td>
-                                </tr>
-                        </table>
-                        <br/>
-                        <br/>
-                        <b>Svar fra webservice</b>
-                        <div id="webresult"></div>
-                </div>
-
+            Mini projektet er udarbejdet af
+            <br /><br />
+            Ronny Kisbye
+            <br /><br />
+            2022
         </div>
+        <div id="om-1">
+            <div id="tabs-om-1">
+                <ul>
+                    <li><a href="#sp-1">1</a></li>
+                    <li><a href="#sp-2">2</a></li>
+                </ul>
+
+                <div id="sp-1">
+                    <p>Spørgsmål</p>
+                    1. Beskriv en computers hardware.<br/>
+                    2. Beskriv Azure Cloud og hvad du kan bruge den til.<br/>
+                </div>
+                <div id="sp-2">
+                    <p>Svar</p>
+                    <p>Her kan du skrive dine svar til spørgsmålene.</p>
+                </div>
+            </div>
+        </div>
+        <div id="om-2">
+            <p>Spørgsmål og svar</p>
+        </div>
+        <div id="om-3">
+            <p>Spørgsmål og svar</p>
+        </div>
+        <div id="om-4">
+            <p>Spørgsmål og svar</p>
+        </div>
+        <div id="webs">
+            <table>
+                <tr>
+                    <td>Navn</td>
+                    <td style="padding-left: 20px;padding-right: 20px;">
+                        <input id="navn" alt="Klik på knappen og se svaret fra webserveren" title="Klik på knappen og se svaret fra webserveren">
+                    </td>
+                    <td><button id="btnRun">Test webservice</button></td>
+                </tr>
+            </table>
+            <br/>
+            <br/>
+            <b>Svar fra webservice</b>
+            <div id="webresult"></div>
+        </div>
+    </div>
+
     <main class="app" aria-live="polite">
         <header>
             <h1>Mit Kommunikationsbræt</h1>
             <p>Tryk på et symbol for at fortælle, hvad du har brug for.</p>
         </header>
 
-</body>
         <section id="home" class="screen active">
             <div class="menu-grid">
                 <button class="menu-button primary food" data-target="food" data-phrase="Jeg vil spise.">
@@ -278,10 +259,6 @@
                 <button class="menu-button primary sleep" data-phrase="Jeg vil gerne sove.">
                     <span class="emoji" aria-hidden="true">🌙</span>
                     <span class="label">Sove</span>
-                </button>
-                <button class="menu-button back" data-phrase="Tilbage." data-target="home">
-                    <span class="emoji" aria-hidden="true">⬅️</span>
-                    <span class="label">Tilbage</span>
                 </button>
             </div>
         </section>
@@ -313,7 +290,6 @@
             </div>
         </section>
 
-</html>
         <section id="food" class="screen food" aria-label="Mad">
             <div class="menu-grid">
                 <button class="menu-button" data-phrase="Jeg vil have en banan.">
@@ -402,6 +378,25 @@
                 if (target) {
                     showScreen(target);
                 }
+            });
+        });
+
+        $(function () {
+            $("#tabs").tabs();
+            $("#tabs-om-1").tabs();
+
+            $("#btnRun").click(function () {
+                $.ajax({
+                    url: "https://api.nationalize.io/?name=" + encodeURIComponent($("#navn").val()),
+                    success: function (result) {
+                        $("#webresult").html("");
+                        $.each(result.country, function (i) {
+                            $.each(result.country[i], function (key, val) {
+                                $("#webresult").append("<div>" + key + ": " + val + "</div>");
+                            });
+                        });
+                    }
+                });
             });
         });
     </script>
